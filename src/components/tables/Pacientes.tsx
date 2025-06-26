@@ -1,12 +1,6 @@
 'use client'
 import React, { useState, useEffect } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHeader,
-  TableRow,
-} from "../ui/table";
+
 import Image from "next/image";
 
 // Colores para los diferentes estados de triage

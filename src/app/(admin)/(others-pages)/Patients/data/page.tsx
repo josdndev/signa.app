@@ -1,15 +1,14 @@
 'use client'
-import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+
+import React, { Suspense, useEffect, useState } from "react";
 import PatientsAside from "@/components/data/PatientsAside";
 import PatientInfo from "@/components/data/PatientInfo";
+import { useSearchParams } from "next/navigation";
 
-export default function DataPage() {
+function DataPage() {
   const [cedulaSeleccionada, setCedulaSeleccionada] = useState<string>("");
   const searchParams = useSearchParams();
-  const cedulaQuery = searchParams.get("cedula");
-
+  const cedulaQuery = searchParams?.get("cedula") || "";
   // Cuando cambia la query, actualiza la seleccion
   useEffect(() => {
     if (cedulaQuery) setCedulaSeleccionada(cedulaQuery);
@@ -29,5 +28,13 @@ export default function DataPage() {
         onSelect={setCedulaSeleccionada}
       />
     </div>
+  );
+}
+
+export default function DataPageWrapper() {
+  return (
+    <Suspense fallback={<div>Cargando...</div>}>
+      <DataPage />
+    </Suspense>
   );
 }
