@@ -40,12 +40,18 @@ const pacientes = [
 ];
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const cedula = searchParams.get("cedula");
-  if (cedula) {
-    const paciente = pacientes.find((p) => p.cedula === cedula);
-    if (paciente) return NextResponse.json(paciente);
-    return NextResponse.json({ error: "Paciente no encontrado" }, { status: 404 });
+  try {
+    const { searchParams } = new URL(req.url);
+    const cedula = searchParams.get("cedula");
+    if (cedula) {
+      const paciente = pacientes.find((p) => p.cedula === cedula);
+      if (paciente) return NextResponse.json(paciente);
+      return NextResponse.json({ error: "Paciente no encontrado" }, { status: 404 });
+    }
+    return NextResponse.json(pacientes);
+  } catch (error) {
+    // Log para debug en Vercel
+    console.error("API /api/pacientes error:", error);
+    return NextResponse.json({ error: "Error interno del servidor", details: String(error) }, { status: 500 });
   }
-  return NextResponse.json(pacientes);
 }
