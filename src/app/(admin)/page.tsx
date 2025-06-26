@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { EcommerceMetrics } from "@/components/ecommerce/EcommerceMetrics";
+import ComponentCard from "@/components/common/ComponentCard";
+import PageBreadcrumb from "@/components/common/PageBreadCrumb";
+import Pacientes from "@/components/tables/Pacientes";
 import React from "react";
-import MonthlyTarget from "@/components/ecommerce/MonthlyTarget";
-import MonthlySalesChart from "@/components/ecommerce/MonthlySalesChart";
-import StatisticsChart from "@/components/ecommerce/StatisticsChart";
-import RecentOrders from "@/components/ecommerce/RecentOrders";
-import DemographicCard from "@/components/ecommerce/DemographicCard";
+
 
 export const metadata: Metadata = {
   title:
@@ -15,28 +13,15 @@ export const metadata: Metadata = {
 
 export default function Ecommerce() {
   return (
-    <div className="grid grid-cols-12 gap-4 md:gap-6">
-      <div className="col-span-12 space-y-6 xl:col-span-7">
-        <EcommerceMetrics />
-
-        <MonthlySalesChart />
+    <div className="grid grid-cols-16 gap-4 md:gap-6">
+      <div className="col-span-14">
+         <PageBreadcrumb pageTitle="Welcome" />
+         <div className="space-y-6">
+          <ComponentCard title="Pacientes por Atender">
+          <Pacientes />
+         </ComponentCard>
       </div>
-
-      <div className="col-span-12 xl:col-span-5">
-        <MonthlyTarget />
-      </div>
-
-      <div className="col-span-12">
-        <StatisticsChart />
-      </div>
-
-      <div className="col-span-12 xl:col-span-5">
-        <DemographicCard />
-      </div>
-
-      <div className="col-span-12 xl:col-span-7">
-        <RecentOrders />
-      </div>
+    </div>
     </div>
   );
 }
