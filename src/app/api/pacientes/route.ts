@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const pacientes = [
   {
@@ -44,8 +44,8 @@ export async function GET(req: NextRequest) {
   const cedula = searchParams.get("cedula");
   if (cedula) {
     const paciente = pacientes.find((p) => p.cedula === cedula);
-    if (paciente) return Response.json(paciente);
-    return new Response(JSON.stringify({ error: "Paciente no encontrado" }), { status: 404 });
+    if (paciente) return NextResponse.json(paciente);
+    return NextResponse.json({ error: "Paciente no encontrado" }, { status: 404 });
   }
-  return Response.json(pacientes);
+  return NextResponse.json(pacientes);
 }
